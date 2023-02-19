@@ -1,3 +1,14 @@
+Modified Version of WebDAV Client
+===
+Thanks to the author, I mainly run this project on switch homebrew, so I hope to have as few dependencies as possible and easy to integrate into my existing projects.
+
+So the following modifications have been made:
+
+ - remove boost
+ - using git-submodule instead polly
+ - using system curl
+
+
 WebDAV Client
 ===
 [![version](https://img.shields.io/badge/hunter-v0.23.86-blue.svg)](https://github.com/ruslo/hunter/releases/tag/v0.23.86)

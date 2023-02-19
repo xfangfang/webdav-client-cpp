@@ -1,3 +1,3 @@
-[submodule "tools/polly"]
-	path = tools/polly
-	url = https://github.com/ruslo/polly
+[submodule "library/pugixml"]
+	path = library/pugixml
+	url = https://github.com/zeux/pugixml.git

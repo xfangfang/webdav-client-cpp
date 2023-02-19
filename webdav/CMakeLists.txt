@@ -22,19 +22,27 @@
 
 cmake_minimum_required(VERSION 3.4)
 
-project(WDC_DEMO)
+set(WDC_VERSION_MAJOR 1)
+set(WDC_VERSION_MINOR 1)
+set(WDC_VERSION_PATCH 5)
+set(WDC_VERSION_TWEAK 1)
+set(WDC_VERSION ${WDC_VERSION_MAJOR}.${WDC_VERSION_MINOR}.${WDC_VERSION_PATCH})
+
+project(WDC VERSION ${WDC_VERSION})
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# include pugixml
-set(BUILD_SHARED_LIBS OFF)
-set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/library/pugixml EXCLUDE_FROM_ALL)
+file(GLOB WDC_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/sources/*.cpp")
 
-# include libwdc
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/webdav EXCLUDE_FROM_ALL)
+add_library(libwdc ${${PROJECT_NAME}_SOURCES})
+set_target_properties(libwdc PROPERTIES PREFIX "")
+set_target_properties(libwdc PROPERTIES IMPORT_PREFIX "")
 
-add_executable(${PROJECT_NAME} example/main.cpp)
+if(WDC_VERBOSE)
+  target_compile_definitions(libwdc PUBLIC WDC_VERBOSE=1)
+endif()
 
-target_link_libraries(${PROJECT_NAME} PUBLIC libwdc)
+target_link_libraries(libwdc PUBLIC curl pugixml::static)
+
+target_include_directories(libwdc PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
